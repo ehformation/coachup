@@ -1209,3 +1209,14 @@ section { padding: 96px 0; }
   color: white;
 }
 .nav-links .page-numbers.dots { border: none; background: transparent; }
+
+.tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+.tag-niveau {
+  background: rgba(245, 158, 11, .15);
+  color: var(--accent-dark);
+}
+
+.tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+.tag.niveau-facile      { background: rgba(16,185,129,.15); color: #047857; }
+.tag.niveau-intermediaire { background: rgba(245,158,11,.15); color: var(--accent-dark); }
+.tag.niveau-difficile        { background: rgba(239,68,68,.15);  color: #b91c1c; }
