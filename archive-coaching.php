@@ -56,6 +56,25 @@
             <div class="coaching-body">
               <div class="coaching-meta">
                 <?php if ($duree) : ?><span>⏱ <?php echo esc_html($duree); ?></span><?php endif; ?>
+                <?php
+                $niveaux = get_the_terms(get_the_ID(), 'niveau');
+                $icones  = array(
+                    'facile'      => '🌱',
+                    'intermediaire' => '🔥',
+                    'difficile'     => '⚡',
+                );
+                ?>
+                <?php if ($niveaux && !is_wp_error($niveaux)) :
+                $slug = $niveaux[0]->slug;
+                $ico  = isset($icones[$slug]) ? $icones[$slug] : '📊';
+                ?>
+                <span><?php echo $ico; ?> <?php echo esc_html($niveaux[0]->name); ?></span>
+                <?php endif; ?>
+                <?php $lieu = get_post_meta(get_the_ID(), 'lieu', true); ?>
+                
+                <?php if ($lieu) : ?>
+                <span>📍 <?php echo esc_html($lieu); ?></span>
+                <?php endif; ?>
               </div>
               <h3><?php the_title(); ?></h3>
               <p><?php echo wp_trim_words(get_the_excerpt(), 18); ?></p>
