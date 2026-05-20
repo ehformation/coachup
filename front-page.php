@@ -57,6 +57,55 @@
   </div>
 </section>
 
+<section style="background: var(--gray-50);">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Nos programmes</span>
+      <h2>Découvre nos coachings phares.</h2>
+    </div>
+    <div class="coachings-grid">
+      <?php
+        $featured = new WP_Query(array(
+          'post_type'      => 'coaching',
+          'posts_per_page' => 3,
+        ));
+        $gradients = array(
+          'linear-gradient(135deg, #6366F1, #F59E0B)',
+          'linear-gradient(135deg, #FB7185, #F59E0B)',
+          'linear-gradient(135deg, #10B981, #6366F1)',
+        );
+        $i = 0;
+        while ( $featured->have_posts() ) : $featured->the_post();
+          $duree = get_post_meta(get_the_ID(), 'duree', true);
+          $prix  = get_post_meta(get_the_ID(), 'prix', true);
+          $types = get_the_terms(get_the_ID(), 'type-coaching');
+          $type_label = ($types && !is_wp_error($types)) ? $types[0]->name : 'Coaching';
+          $bg = $gradients[$i % 3];
+      ?>
+        <article class="coaching-card">
+          <div class="coaching-thumb" style="background: <?php echo esc_attr($bg); ?>;">
+            <span class="badge"><?php echo esc_html($type_label); ?></span>
+            <?php if ( has_post_thumbnail() ) : ?>
+              <?php the_post_thumbnail('medium_large', array('style' => 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.85;mix-blend-mode:multiply;')); ?>
+            <?php endif; ?>
+          </div>
+          <div class="coaching-body">
+            <div class="coaching-meta">
+              <?php if ($duree) : ?><span>⏱ <?php echo esc_html($duree); ?></span><?php endif; ?>
+            </div>
+            <h3><?php the_title(); ?></h3>
+            <p><?php echo wp_trim_words(get_the_excerpt(), 18); ?></p>
+            <div class="coaching-footer">
+              <div class="price"><?php echo $prix ? esc_html($prix) : 'Sur devis'; ?></div>
+              <a href="<?php the_permalink(); ?>" class="coaching-cta">→</a>
+            </div>
+          </div>
+        </article>
+      <?php $i++; endwhile; wp_reset_postdata(); ?>
+    </div>
+  </div>
+</section>
+
 <section class="coachings-section" style="padding-top: 32px;">
   <div class="container">
     <div class="section-head">
@@ -109,4 +158,5 @@
     <?php endif; wp_reset_postdata(); ?>
   </div>
 </section>
+
 <?php get_footer(); ?>
