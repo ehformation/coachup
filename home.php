@@ -102,6 +102,13 @@
           </article>
         <?php $i++; endwhile; ?>
       </div>
+      <?php
+        the_posts_pagination(array(
+            'mid_size'  => 2,
+            'prev_text' => '← Précédent',
+            'next_text' => 'Suivant →',
+        ));
+    ?>
     <?php endif; wp_reset_postdata(); ?>
   </div>
 </section>

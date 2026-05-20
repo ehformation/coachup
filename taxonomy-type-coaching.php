@@ -87,6 +87,13 @@
           </article>
         <?php $i++; endwhile; ?>
       </div>
+      <?php
+        the_posts_pagination(array(
+            'mid_size'  => 2,
+            'prev_text' => '← Précédent',
+            'next_text' => 'Suivant →',
+        ));
+    ?>
     <?php else : ?>
       <p style="text-align:center; color: var(--gray-500); padding: 64px 0;">Aucun coaching trouvé pour cette catégorie.</p>
     <?php endif; ?>

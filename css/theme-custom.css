@@ -1178,3 +1178,34 @@ section { padding: 96px 0; }
   .detail-layout { grid-template-columns: 1fr; }
   .detail-aside { position: static; }
 }
+
+.pagination,
+.nav-links {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 64px;
+  flex-wrap: wrap;
+}
+.nav-links .page-numbers {
+  min-width: 44px;
+  height: 44px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: white;
+  border: 1px solid var(--gray-100);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gray-700);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all .2s;
+}
+.nav-links .page-numbers:hover { border-color: var(--primary); color: var(--primary); }
+.nav-links .page-numbers.current {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+.nav-links .page-numbers.dots { border: none; background: transparent; }

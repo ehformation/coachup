@@ -71,7 +71,7 @@
                 <span><?php echo $ico; ?> <?php echo esc_html($niveaux[0]->name); ?></span>
                 <?php endif; ?>
                 <?php $lieu = get_post_meta(get_the_ID(), 'lieu', true); ?>
-                
+
                 <?php if ($lieu) : ?>
                 <span>📍 <?php echo esc_html($lieu); ?></span>
                 <?php endif; ?>
@@ -85,7 +85,15 @@
             </div>
           </article>
         <?php $i++; endwhile; ?>
+        
       </div>
+      <?php
+        the_posts_pagination(array(
+            'mid_size'  => 2,
+            'prev_text' => '← Précédent',
+            'next_text' => 'Suivant →',
+        ));
+    ?>
     <?php else : ?>
       <p style="text-align:center; color: var(--gray-500); padding: 64px 0;">Aucun coaching trouvé pour le moment.</p>
     <?php endif; ?>
