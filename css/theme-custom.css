@@ -1404,3 +1404,75 @@ section { padding: 96px 0; }
 .cf7-hidden{
   display: none !important;
 }
+
+/* ===================== FAQ ===================== */
+.faq { display: flex; flex-direction: column; gap: 12px; }
+.faq details {
+  background: white;
+  border: 1px solid var(--gray-100);
+  border-radius: var(--radius-md);
+  padding: 20px 24px;
+  transition: all .2s;
+}
+.faq details[open] { border-color: var(--primary-light); box-shadow: var(--shadow-sm); }
+.faq summary {
+  font-weight: 600;
+  color: var(--dark);
+  cursor: pointer;
+  list-style: none;
+  position: relative;
+  padding-right: 32px;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after {
+  content: '+';
+  position: absolute;
+  right: 0; top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  color: var(--primary);
+  transition: transform .2s;
+}
+.faq details[open] summary::after { content: '−'; }
+.faq details p { margin: 12px 0 0; color: var(--gray-500); }
+
+/* ===================== WRAPPER CF7 SUR PAGE RESERVATION ===================== */
+.reservation-wrapper {
+  background: white;
+  padding: 40px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+.reservation-wrapper .wpcf7-form-control:not(.wpcf7-submit) {
+  width: 100%;
+  padding: 12px 16px;
+  margin-top: 6px;
+  border: 1.5px solid var(--gray-100);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: .95rem;
+  background: var(--gray-50);
+  outline: none;
+  transition: all .2s;
+  box-sizing: border-box;
+}
+.reservation-wrapper .wpcf7-form-control:not(.wpcf7-submit):focus {
+  border-color: var(--primary);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(99,102,241,.12);
+}
+.reservation-wrapper .wpcf7-submit {
+  width: 100%;
+  padding: 14px 28px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 999px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(99,102,241,.35);
+  transition: all .25s;
+}
+.reservation-wrapper .wpcf7-submit:hover { background: var(--primary-dark); transform: translateY(-2px); }
+.reservation-wrapper label { display: block; margin-bottom: 14px; font-weight: 600; color: var(--gray-700); font-size: .9rem; }

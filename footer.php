@@ -8,7 +8,7 @@
           <h2>Prêt à passer à la vitesse supérieure&nbsp;?</h2>
           <p>Réserve ton appel découverte de 30 minutes, sans engagement.</p>
         </div>
-        <a href="#" class="btn btn-accent">Réserver mon appel →</a>
+        <a href="<?php echo esc_url( get_permalink( get_page_by_path('reservation') ) ); ?>" class="btn btn-accent">Réserver mon appel →</a>
       </div>
     </div>
   </div>
