@@ -6,6 +6,11 @@
       <h1>Révèle <span class="accent">le meilleur de toi</span> avec un coach d'exception.</h1>
       <p class="hero-lead">Accélère ta progression personnelle et professionnelle grâce à des coachs certifiés, des programmes sur-mesure et un accompagnement humain au quotidien.</p>
       <div class="hero-actions">
+        <?php get_search_form(); ?>
+      </div>
+       
+      <div class="hero-actions">
+        
         <a href="<?php echo get_post_type_archive_link('coaching'); ?>" class="btn btn-primary">Voir les coachings →</a>
         <a href="#decouvrir" class="btn btn-ghost">▶ Voir la démo</a>
       </div>
