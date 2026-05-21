@@ -70,3 +70,65 @@ function coachuptheme_social_icons( $title, $item, $args, $depth = 0 ) {
 	return $title;
 }
 add_filter( 'nav_menu_item_title', 'coachuptheme_social_icons', 10, 4 );
+
+function coachuptheme_search_filters( $query ) {
+    if ( is_admin() || ! $query->is_main_query() || !$query->is_search() ) {
+        return;
+    }
+    // 1) Recherche dans coachings UNIQUEMENT
+    $query->set( 'post_type', array('coaching') );
+
+    $tax_query = array();
+
+    if ( ! empty($_GET['type-coaching']) ) {
+        $tax_query[] = array(
+            'taxonomy' => 'type-coaching',
+            'field'    => 'slug',
+            'terms'    => sanitize_text_field($_GET['type-coaching']),
+        );
+    }
+
+    if ( ! empty($_GET['niveau']) ) {
+        $tax_query[] = array(
+            'taxonomy' => 'niveau',
+            'field'    => 'slug',
+            'terms'    => sanitize_text_field($_GET['niveau']),
+        );
+    }
+
+    if ( count($tax_query) > 1 ) {
+        $tax_query['relation'] = 'AND';
+    }
+
+    if ( ! empty($tax_query) ) {
+        $query->set( 'tax_query', $tax_query );
+    }
+
+    // 3) Filtres meta (prix max + lieu)
+    $meta_query = array();
+
+    if ( ! empty($_GET['prix_max']) ) {
+        $meta_query[] = array(
+            'key'     => 'prix',
+            'value'   => intval($_GET['prix_max']),
+            'compare' => '<=',
+            'type'    => 'NUMERIC',
+        );
+    }
+
+    if ( ! empty($_GET['lieu']) ) {
+        $meta_query[] = array(
+            'key'     => 'lieu',
+            'value'   => sanitize_text_field($_GET['lieu']),
+            'compare' => '=',
+        );
+    }
+
+    if ( count($meta_query) > 1 ) {
+        $meta_query['relation'] = 'AND';
+    }
+    if ( ! empty($meta_query) ) {
+        $query->set( 'meta_query', $meta_query );
+    }
+}
+add_action( 'pre_get_posts', 'coachuptheme_search_filters' );

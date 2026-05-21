@@ -1220,3 +1220,25 @@ section { padding: 96px 0; }
 .tag.niveau-facile      { background: rgba(16,185,129,.15); color: #047857; }
 .tag.niveau-intermediaire { background: rgba(245,158,11,.15); color: var(--accent-dark); }
 .tag.niveau-difficile        { background: rgba(239,68,68,.15);  color: #b91c1c; }
+
+.search-form,
+.search-form-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 840px;
+  margin: 0 auto;
+}
+.search-row { display: flex; gap: 8px; background: white; padding: 6px; border-radius: 999px; box-shadow: var(--shadow-sm); }
+.search-row input { flex: 1; border: none; padding: 12px 20px; outline: none; background: transparent; font-family: inherit; }
+.search-filters { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+.search-filters select,
+.search-filters input[type="number"] {
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--gray-100);
+  background: white;
+  font-family: inherit;
+  font-size: .9rem;
+}
+.screen-reader-text { position: absolute; left: -9999px; }

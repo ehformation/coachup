@@ -24,6 +24,9 @@
                 <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/logo-coachup-large-blanc.png" alt="CoachUp">
             </a>
         </div>
+        <div class="hero-actions">
+          <?php get_search_form(); ?>
+        </div>
         <p><?php echo get_bloginfo('description'); ?></p>
         <div class="social">
             <?php

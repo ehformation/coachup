@@ -12,9 +12,68 @@
     </h1>
     <p><strong><?php echo $GLOBALS['wp_query']->found_posts; ?></strong> résultat(s)</p>
 
-    <div style="margin-top: 32px;">
-      <?php get_search_form(); ?>
-    </div>
+    <form role="search" method="get" class="search-form-filters" action="<?php echo home_url('/'); ?>">
+
+      <div class="search-row">
+        <input type="search" name="s"
+              placeholder="Mot-clé (marathon, yoga…)"
+              value="<?php echo get_search_query(); ?>">
+        <button type="submit" class="btn btn-primary">🔍 Rechercher</button>
+      </div>
+
+      <div class="search-filters">
+
+        <!-- Filtre : Type de coaching -->
+        <select name="type-coaching">
+          <option value="">Tous les types</option>
+          <?php
+            $types = get_terms(array('taxonomy' => 'type-coaching', 'hide_empty' => false));
+            foreach ($types as $t) :
+              $selected = (isset($_GET['type-coaching']) && $_GET['type-coaching'] === $t->slug) ? 'selected' : '';
+          ?>
+            <option value="<?php echo esc_attr($t->slug); ?>" <?php echo $selected; ?>>
+              <?php echo esc_html($t->name); ?>
+            </option>
+          <?php endforeach; ?>
+        </select>
+
+        <!-- Filtre : Niveau -->
+        <select name="niveau">
+          <option value="">Tous les niveaux</option>
+          <?php
+            $niveaux = get_terms(array('taxonomy' => 'niveau', 'hide_empty' => false));
+            foreach ($niveaux as $n) :
+              $selected = (isset($_GET['niveau']) && $_GET['niveau'] === $n->slug) ? 'selected' : '';
+          ?>
+            <option value="<?php echo esc_attr($n->slug); ?>" <?php echo $selected; ?>>
+              <?php echo esc_html($n->name); ?>
+            </option>
+          <?php endforeach; ?>
+        </select>
+
+        <!-- Filtre : Prix max -->
+        <input type="number" name="prix_max" placeholder="Prix max (€)"
+              value="<?php echo isset($_GET['prix_max']) ? intval($_GET['prix_max']) : ''; ?>"
+              min="0" step="50">
+
+        <!-- Filtre : Lieu (meta) -->
+        <select name="lieu">
+          <option value="">Tous les lieux</option>
+          <?php
+            $lieux_dispo = array('Paris', 'Marseille', 'Nice');
+            foreach ($lieux_dispo as $l) :
+              $selected = (isset($_GET['lieu']) && $_GET['lieu'] === $l) ? 'selected' : '';
+          ?>
+            <option value="<?php echo esc_attr($l); ?>" <?php echo $selected; ?>>
+              <?php echo esc_html($l); ?>
+            </option>
+          <?php endforeach; ?>
+        </select>
+
+        <!-- Reset -->
+        <a href="<?php echo home_url('/?s='); ?>" class="btn btn-ghost" style="padding:10px 16px;font-size:.85rem;">Reset</a>
+      </div>
+    </form>
   </div>
 </section>
 
