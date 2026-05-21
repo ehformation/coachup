@@ -63,9 +63,9 @@
           <?php endif; ?>
         </div>
 
-        <div class="detail-actions">
-          <a href="#reserver" class="btn btn-primary">Réserver ce coaching →</a>
-        </div>
+        <button type="button" class="btn btn-primary" data-open="modal-reserver">
+          Réserver cette séance →
+        </button>
       </div>
     </div>
   </div>
@@ -82,6 +82,60 @@
     </div>
   </div>
 </section>
+<!-- ============ MODAL RÉSERVATION ============ -->
+<div class="modal-overlay" id="modal-reserver" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+
+    <button type="button" class="modal-close" aria-label="Fermer">×</button>
+
+    <div class="modal-header">
+      <div class="modal-icon">🎯</div>
+      <h2 id="modal-title">Réserver cette séance</h2>
+      <p class="modal-subtitle"><?php the_title(); ?></p>
+    </div>
+
+    <div class="modal-body">
+      <?php echo do_shortcode('[contact-form-7 id="e15a562" title="Réservation coaching"]'); ?>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  (function() {
+    var modal = document.getElementById('modal-reserver');
+    if (!modal) return;
+
+    var openBtns  = document.querySelectorAll('[data-open="modal-reserver"]');
+    var closeBtns = modal.querySelectorAll('.modal-close');
+    var titre     = <?php echo wp_json_encode( get_the_title() ); ?>;
+
+    function open()  { modal.classList.add('is-open');    document.body.style.overflow = 'hidden'; }
+    function close() { modal.classList.remove('is-open'); document.body.style.overflow = ''; }
+
+    function fillCoaching() {
+      var input = modal.querySelector('input[name="coaching"]');
+      if (input) input.value = titre;
+    }
+
+    // 1) Tentative au chargement initial (CF7 peut charger en différé)
+    setTimeout(fillCoaching, 100);
+    setTimeout(fillCoaching, 500);
+
+    // 2) Et à chaque ouverture de la modale (sécurité)
+    openBtns.forEach(function(b) {
+      b.addEventListener('click', function(e) {
+        e.preventDefault();
+        open();
+        setTimeout(fillCoaching, 50);
+      });
+    });
+
+    closeBtns.forEach(function(b) { b.addEventListener('click', close); });
+    modal.addEventListener('click', function(e) { if (e.target === modal) close(); });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') close(); });
+  })();
+</script>
 
 <?php endwhile; ?>
 
